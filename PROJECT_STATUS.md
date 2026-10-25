@@ -29,9 +29,9 @@
 | --- | --- |
 | Todo | 0 |
 | Ready | 0 |
-| Running | 1 |
+| Running | 0 |
 | Review | 1 |
-| Done | 27 |
+| Done | 28 |
 | Blocked | 0 |
 
 Các task Done hiện là công việc hồ sơ; không đại diện phần trăm hoàn thành sản phẩm.
@@ -49,4 +49,4 @@ Các task Done hiện là công việc hồ sơ; không đại diện phần tr�
 
 ## Git publication
 
-T-029 đang chuẩn bị initial commit và push tới origin main (hwgapp/tpx). Chỉ publish hồ sơ/tooling hiện có, implementation vẫn chưa bắt đầu.
+T-029 Done: initial commit7c1fd6f đã push thành công tới origin/main (hwgapp/tpx). Hồ sơ/tooling có thể truy cập/review từ GitHub; implementation vẫn chưa bắt đầu.

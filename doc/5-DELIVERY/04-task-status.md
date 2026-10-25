@@ -38,10 +38,10 @@ Deferred
 | T-026 | P0 | Docs | Done | 1 | T-025 | Review flow gaps | Codex | 100% | Đối chiếu PRD/flow/state/API; kiểm IDs/refs/snapshot/J-FC coverage và standalone pack; không claim product tests | - | Flow audit v0.2:28findings/6Critical,25J/100FC,16AG; P-013–019 chưa duyệt. Detailed design/review được unblock, critical implementation chưa mở |
 | T-027 | P0 | Docs | Done | 1 | T-026 | Clarify OQ-048/049/050/042 | Codex | 100% | python3 /tmp/tpx-review-round1-verify.py; source/AC/API/state/hold/links/snapshot checks, no product tests | - | Ghi D-093–100 theo6trả lời và2clarifiers, phân biệt phần chốt/mở; cập nhật PRD/schema draft/design context. Unblock đặc tả points/admin; cash/points cùng hold, không clawback ORDER_EARN; complete-unpaid/chênh lệch còn mở |
 | T-028 | P0 | Docs | Done | 1 | T-027 | Claude Design handoff | Codex | 100% | python3 doc/4-DESIGN/tools/verify_handoff.py; consistency/coverage/snapshot/branch checks, không product tests | - | Brief v0.4 làm lại DS/UI requirements và current rules; context độc lập/generator/validator trong repo. Unblock gửi design; actual output Pending, OQ-050/042 còn mở |
-| T-029 | P0 | Git | Running | 1 | T-028 | GitHub publication | Codex | Prepared | verify_handoff.py PASS; inspect staged files; verify remote HEAD after push | - | User yêu cầu push; origin hwgapp/tpx đang trống, chuẩn bị initial commit main; không thêm application skeleton |
+| T-029 | P0 | Git | Done | 1 | T-028 | - | Codex | 100% | verify_handoff.py PASS; git diff --cached --check PASS; git push -u origin main thành công | - | Initial commit7c1fd6f đã publish tới hwgapp/tpx/main; bỏ cache/local env khỏi Git. Unblock truy cập/review hồ sơ từ GitHub, chưa implementation |
 
 ## Rollup
 
 | Phase | Done Points | Total Points | % | Forecast |
 | --- | ---: | ---: | ---: | --- |
-| P0 | 27 | 29 | 93% | Chờ review BRD/PRD/Technical; đây là tiến độ task hồ sơ, không phải tiến độ sản phẩm |
+| P0 | 28 | 29 | 97% | Chờ review BRD/PRD/Technical; đây là tiến độ task hồ sơ, không phải tiến độ sản phẩm |
