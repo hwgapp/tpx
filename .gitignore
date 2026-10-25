@@ -1,0 +1,9 @@
+# Local metadata and Python caches
+.DS_Store
+__pycache__/
+*.py[cod]
+
+# Local environment files
+.env
+.env.*
+!.env.example

@@ -1,0 +1,31 @@
+# Technical Decisions
+
+| ID | Ngày | Decision | Reason | Impact | Status |
+| --- | --- | --- | --- | --- | --- |
+| TD-001 | 2026-10-20 | Backend dùng Node.js và kiến trúc modular | Yêu cầu trực tiếp của user tại intake G0 | Là ràng buộc đầu vào; framework, database, module boundary, deployment chưa chốt; chưa tạo code skeleton | User-specified; G4 pending |
+| TD-002 | 2026-10-21 | Backend NestJS | User chọn trực tiếp | Bổ sung framework cho TD-001; module boundary chưa freeze | User-specified |
+| TD-003 | 2026-10-21 | Frontend React và Next.js | User chọn trực tiếp | Phân bổ Next.js storefront và React admin là đề xuất bên dưới | User-specified |
+| TD-004 | 2026-10-21 | Database PostgreSQL | User chọn trực tiếp | ORM, migration và transaction design cần freeze | User-specified |
+| TD-005 | 2026-10-21 | TypeScript, monorepo pnpm + Turborepo | Đề xuất dùng chung contracts/config và chạy kiểm tra nhiều app | pnpm quản lý web/admin/API/worker; Flutter dùng toolchain Dart/Flutter riêng trong cùng repo, không coi là package TypeScript | Approved by user — TD-019; G4 pending |
+| TD-006 | 2026-10-21 | NestJS modular monolith, REST API + OpenAPI | Đề xuất theo quy mô thử nghiệm và phạm vi nghiệp vụ | API/worker dùng chung module; backend sở hữu logic giá, quyền, số dư và điểm | Approved by user — TD-019; G4 pending |
+| TD-007 | 2026-10-21 | Next.js cho storefront, React + Vite cho admin; Tailwind CSS + shadcn/ui cho web/admin | Đề xuất phân công các công nghệ user chọn | Dùng chung tokens thương hiệu; UI web/native có triển khai phù hợp từng nền tảng | Approved by user — TD-019; G4 pending |
+| TD-008 | 2026-10-21 | React Native + Expo cho iOS/Android | Đề xuất tiếp nối React/TypeScript | Expo Notifications/Push Service cho push; kiểm tra thiết bị thật và credentials khi triển khai | Superseded by TD-014 — user chọn Flutter |
+| TD-009 | 2026-10-21 | Prisma ORM cho PostgreSQL | Đề xuất schema/migration và transaction có kiểu dữ liệu | Chốt phiên bản tương thích trước skeleton; SQL bổ sung khi cần transaction/locking cụ thể | Approved by user — TD-019; G4 pending |
+| TD-010 | 2026-10-21 | Redis + BullMQ | NestJS có tích hợp BullMQ; cần xử lý thông báo và job nền | Retry/idempotency; deadline 22:00 kiểm tra tại API theo giờ server, không phụ thuộc job chạy đúng giờ | Approved by user — TD-019; G4 pending |
+| TD-011 | 2026-10-21 | Object storage tương thích S3 cho ảnh | Đề xuất lưu ảnh catalog ngoài database | Nhà cung cấp/bucket/CDN TBD; có thể đánh giá S3 hoặc R2 | Approved by user — TD-019; G4 pending |
+| TD-012 | 2026-10-21 | Docker cho local/deploy, môi trường staging và production tách riêng | Đề xuất triển khai nhất quán | Nhà cung cấp, vùng đặt máy, tài nguyên và chi phí chưa chốt; không tạo tài khoản/hạ tầng lúc này | Rejected by user; replaced by TD-015 |
+| TD-013 | 2026-10-21 | Sổ giao dịch tiền và điểm riêng, transaction/idempotency/audit | Đề xuất bảo toàn nghiệp vụ số dư, rút hoàn, loyalty/referral | Tiền VND dùng đơn vị nguyên; không cộng/trừ trùng khi retry; quyền thực thi tại API | Approved by user — TD-019; G4 pending |
+| TD-014 | 2026-10-21 | Mobile iOS/Android dùng Flutter/Dart | User yêu cầu Flutter, không dùng React Native | Thay TD-008; mobile theo contract API, không dùng Expo hoặc chia sẻ trực tiếp package TypeScript | User-specified |
+| TD-015 | 2026-10-21 | Không dùng Docker | User yêu cầu trực tiếp | Loại Docker khỏi local, CI và deployment; cơ chế chạy dịch vụ cần review | User-specified |
+| TD-016 | 2026-10-21 | Chạy NestJS/worker/Next.js bằng Node.js trực tiếp, admin phục vụ bản build static; PostgreSQL/Redis native hoặc managed | Đề xuất thay phương án deployment cũ | Chọn process manager, reverse proxy, nhà cung cấp và tài nguyên khi review hạ tầng; không triển khai ngay | Approved by user — TD-019; G4 pending |
+| TD-017 | 2026-10-21 | Push Flutter qua Firebase Cloud Messaging | Đề xuất phù hợp mobile Flutter | Firebase/Apple credentials và xử lý token theo môi trường; không dùng Expo Push Service | Approved by user — TD-019; G4 pending |
+| TD-018 | 2026-10-21 | Một tài khoản admin toàn quyền ở bản đầu, nền quyền phân biệt khách/admin | User chốt D-074 | Các bước quản trị/vận hành dùng admin; mô hình quyền có thể mở rộng, không tạo tài khoản/credentials lúc này | Superseded by TD-020 / D-086 |
+| TD-019 | 2026-10-21 | Duyệt gói stack/kiến trúc Technical vòng 1 | User câu 1: ok | Duyệt TD-005/006/007/009/010/011/013/016/017: monorepo, modular monolith REST/OpenAPI, Next storefront, React/Vite admin, Prisma, Redis/BullMQ, S3-compatible, ledger, FCM; native Linux/Nginx/systemd; chưa freeze schema/contracts | User-approved |
+| TD-020 | 2026-10-21 | Một số admin cố định user tạo, tài khoản/mật khẩu không OTP/TOTP | User câu 2 | Thay TD-018 về số lượng; giữ RBAC, audit theo admin_id; không đăng ký admin công khai | User-specified |
+| TD-021 | 2026-10-21 | Google/Facebook/Apple login bản đầu; phone + OTP sau | User câu 4 | Web/Flutter cùng user TPX; không lấy email/phone làm khóa chính; service auth trung gian chưa chốt | User-specified |
+| TD-022 | 2026-10-21 | Dùng server user đã có; không khảo sát mua máy/ngân sách | User câu 3 | Giữ native deploy; cấu hình lúc triển khai, chưa truy cập hoặc đổi server | User-specified |
+| TD-023 | 2026-10-21 | Dùng GitHub cho mã nguồn | User câu 5 | GitHub Actions đề xuất CI; chưa có URL repo, chưa tạo repo hoặc push | User-specified; CI details pending |
+| TD-024 | 2026-10-21 | Đề xuất Firebase Authentication cho Google/Facebook/Apple web và Flutter | Hỗ trợ social providers và xác minh token tại custom backend | NestJS verify ID token/map user TPX ở PostgreSQL; phone sau link cùng user. FCM được duyệt không đồng nghĩa Firebase Auth đã duyệt | Approved by user — TD-025; G4 pending |
+| TD-025 | 2026-10-21 | Duyệt Firebase Authentication Google/Facebook/Apple web/Flutter, backend verify token và map user TPX/PostgreSQL | User đồng ý đề xuất Firebase Auth | Duyệt TD-024; link thêm phone sau OTP vào tài khoản hiện có; không chuyển nghiệp vụ sang Firebase; credentials chưa được tạo | User-approved |
+
+| TD-026 | 2026-10-21 | Thiết kế logic PRD v0.1: 68 bảng/118 API/state và financial appendix | Thực hiện yêu cầu D-090 | Fields/FK/index/DTO/commands và policies P-001–012 để review; không tạo migrations/schema/code và không coi proposals đã duyệt | Draft design; G4 pending |
